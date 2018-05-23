@@ -1,10 +1,10 @@
-import FluentSQLite
+import FluentMySQL
 import Vapor
 
 /// Called before your application initializes.
 public func configure(_ config: inout Config, _ env: inout Environment, _ services: inout Services) throws {
     /// Register providers first
-    try services.register(FluentSQLiteProvider())
+    try services.register(FluentMySQLProvider())
 
     /// Register routes to the router
     let router = EngineRouter.default()
@@ -13,22 +13,27 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
 
     /// Register middleware
     var middlewares = MiddlewareConfig() // Create _empty_ middleware config
-    /// middlewares.use(FileMiddleware.self) // Serves files from `Public/` directory
+//    / middlewares.use(FileMiddleware.self) // Serves files from `Public/` directory
     middlewares.use(ErrorMiddleware.self) // Catches errors and converts to HTTP response
+//    middlewares.use(DateMiddleware.self)
     services.register(middlewares)
 
-    // Configure a SQLite database
-    let sqlite = try SQLiteDatabase(storage: .memory)
-
-    /// Register the configured SQLite database to the database config.
-    var databases = DatabasesConfig()
-    databases.add(database: sqlite, as: .sqlite)
-    services.register(databases)
+//    // Configure a SQLite database
+//    let sqlite = try SQLiteDatabase(storage: .memory)
+    //config mysql
+    var databasesConfig = DatabasesConfig()
+    
+    let mysqlDatabaseConfig = MySQLDatabaseConfig(hostname: "localhost", port: 3306, username: "vapor", password: "787169", database: "vapor")
+    let database = MySQLDatabase(config: mysqlDatabaseConfig)
+    
+    
+    databasesConfig.add(database: database, as: .mysql)
+    services.register(databasesConfig)
 
     /// Configure migrations
     var migrations = MigrationConfig()
     //注册
-    migrations.add(model: Acronym.self, database: .sqlite)
+    migrations.add(model: Acronym.self, database: .mysql)
     services.register(migrations)
 
 }

@@ -1,5 +1,5 @@
 import Vapor
-import FluentSQLite
+import FluentMySQL
 
 final class Acronym: Codable {
     var id: Int?
@@ -12,16 +12,16 @@ final class Acronym: Codable {
     }
 }
 
-extension Acronym :Model {
-    //使用寿命数据库
-    typealias Database = SQLiteDatabase
-    //id的类型
-    typealias ID = Int
-    //设置 ID 属性的路径
-    public static var idKey: IDKey = \Acronym.id
-}
+//extension Acronym :Model {
+//    //使用什么数据库
+//    typealias Database = MySQLDatabase
+//    //id的类型
+//    typealias ID = Int
+//    //设置 ID 属性的路径
+//    public static var idKey: IDKey = \Acronym.id
+//}
 
-extension Acronym: SQLiteModel {}
+extension Acronym: MySQLModel {}
 
 //要吧model保存到数据库中，需要创建一个表，Fluent 通过 Migration 来完成这个操作
 extension Acronym: Migration {}

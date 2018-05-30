@@ -34,6 +34,7 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     var migrations = MigrationConfig()
     //注册
     migrations.add(model: Acronym.self, database: .mysql)
+    migrations.add(model: LoginRequest.self, database: .mysql)
     services.register(migrations)
 
 }

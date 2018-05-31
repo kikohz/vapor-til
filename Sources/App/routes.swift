@@ -40,7 +40,7 @@ public func routes(_ router: Router) throws {
         return try req.parameters.next(LoginRequest.self)
     }
     
-    router.put("api", "registered",LoginRequest.parameter) { req-> Future<LoginRequest> in
+    router.put("api", "registered",LoginRequest  .parameter) { req-> Future<LoginRequest> in
         return try flatMap(to: LoginRequest.self, req.parameters.next(LoginRequest.self), req.content.decode(LoginRequest.self)) {  login, updateLogin in
 //            login.email = updateLogin.email
 //            login.password = updateLogin.password

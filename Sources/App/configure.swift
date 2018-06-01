@@ -23,7 +23,7 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     //config mysql
     var databasesConfig = DatabasesConfig()
     
-    let mysqlDatabaseConfig = MySQLDatabaseConfig(hostname: "localhost", port: 3306, username: "vapor", password: "787169", database: "vapor")
+    let mysqlDatabaseConfig = MySQLDatabaseConfig(hostname: "gz-cdb-o7oyj6gu.sql.tencentcdb.com", port: 62575, username: "root", password: "Wx787169", database: "vapor")
     let database = MySQLDatabase(config: mysqlDatabaseConfig)
     
     

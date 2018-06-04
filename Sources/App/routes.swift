@@ -30,6 +30,10 @@ public func routes(_ router: Router) throws {
 
         return .ok
     }
+    
+    //
+    let usersController = UsersController()
+    try router.register(collection: usersController)
 
 //    router.post("api","acronyms") { req -> Future<Acronym> in
 //        return try req.content.decode(Acronym.self).flatMap(to: Acronym.self) { acronym in

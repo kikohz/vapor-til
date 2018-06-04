@@ -20,6 +20,14 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
 
 //    // Configure a SQLite database
 //    let sqlite = try SQLiteDatabase(storage: .memory)
+    
+    // 1
+    var commandConfig = CommandConfig.default()
+    // 2
+    commandConfig.use(RevertCommand.self, as: "revert")
+    // 3
+    services.register(commandConfig)
+    
     //config mysql
     var databasesConfig = DatabasesConfig()
     
@@ -33,8 +41,10 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     /// Configure migrations
     var migrations = MigrationConfig()
     //注册
+    migrations.add(model: User.self, database: .mysql)
     migrations.add(model: Acronym.self, database: .mysql)
     migrations.add(model: LoginRequest.self, database: .mysql)
+    
     services.register(migrations)
 
 }
